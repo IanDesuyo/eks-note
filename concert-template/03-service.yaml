@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: skills-concert
+  name: book-svc
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: book-app
+  type: LoadBalancer
+  loadBalancerClass: eks.amazonaws.com/nlb
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: skills-concert
+  name: query-svc
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: query-app
+  type: LoadBalancer
+  loadBalancerClass: eks.amazonaws.com/nlb
+
